@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>Schedule</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Autofac.WebApi2" Version="6.1.1" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
+        <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.3.8" />
+        <PackageReference Include="Quartz.AspNetCore" Version="3.9.0" />
+        <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.9.0" />
+        <PackageReference Include="Quartz.Extensions.Hosting" Version="3.9.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Schedule.Application\Schedule.Application.csproj" />
+      <ProjectReference Include="..\Schedule.Core\Schedule.Core.csproj" />
+      <ProjectReference Include="..\Schedule.Persistence\Schedule.Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+    </ItemGroup>
+
+</Project>
