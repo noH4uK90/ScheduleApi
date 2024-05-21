@@ -118,6 +118,7 @@ public partial class ScheduleDbContext : DbContext, IScheduleDbContext
             entity.Property(e => e.PasswordHash).HasColumnName("password_hash");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.Surname).HasColumnName("surname");
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
 
             entity.HasOne(d => d.MiddleNameNavigation).WithMany(p => p.Accounts)
                 .HasForeignKey(d => d.MiddleName)
