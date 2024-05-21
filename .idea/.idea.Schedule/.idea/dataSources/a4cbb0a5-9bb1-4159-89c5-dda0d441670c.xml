@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="PostgreSQL">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.52">
+    <root id="1">
+      <ServerVersion>15.7</ServerVersion>
+      <StartupTime>1716283630</StartupTime>
+    </root>
+    <database id="2" parent="1" name="Communes">
+      <ObjectId>16670</ObjectId>
+      <OwnerName>noh4uk</OwnerName>
+    </database>
+    <database id="3" parent="1" name="exam_test_db">
+      <ObjectId>16915</ObjectId>
+      <OwnerName>noh4uk</OwnerName>
+    </database>
+    <database id="4" parent="1" name="goods">
+      <ObjectId>16637</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <database id="5" parent="1" name="labwork">
+      <ObjectId>16721</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <database id="6" parent="1" name="market">
+      <ObjectId>16390</ObjectId>
+      <OwnerName>noh4uk</OwnerName>
+    </database>
+    <database id="7" parent="1" name="measurments">
+      <ObjectId>17302</ObjectId>
+      <OwnerName>noh4uk</OwnerName>
+    </database>
+    <database id="8" parent="1" name="message">
+      <ObjectId>16551</ObjectId>
+      <OwnerName>noh4uk</OwnerName>
+    </database>
+    <database id="9" parent="1" name="messenger">
+      <ObjectId>16753</ObjectId>
+      <OwnerName>noh4uk</OwnerName>
+    </database>
+    <database id="10" parent="1" name="new_schedule">
+      <Current>1</Current>
+      <ObjectId>17772</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <database id="11" parent="1" name="noh4uk">
+      <ObjectId>16385</ObjectId>
+      <OwnerName>noh4uk</OwnerName>
+    </database>
+    <database id="12" parent="1" name="pr3">
+      <ObjectId>16615</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <database id="13" parent="1" name="schedule">
+      <ObjectId>16550</ObjectId>
+      <OwnerName>noh4uk</OwnerName>
+    </database>
+    <database id="14" parent="1" name="test">
+      <ObjectId>17169</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <schema id="15" parent="10" name="information_schema">
+      <ObjectId>13471</ObjectId>
+      <StateNumber>523</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </schema>
+    <schema id="16" parent="10" name="pg_catalog">
+      <Comment>system catalog schema</Comment>
+      <ObjectId>11</ObjectId>
+      <StateNumber>517</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </schema>
+    <schema id="17" parent="10" name="public">
+      <Comment>standard public schema</Comment>
+      <Current>1</Current>
+      <ObjectId>2200</ObjectId>
+      <StateNumber>517</StateNumber>
+      <OwnerName>pg_database_owner</OwnerName>
+    </schema>
+  </database-model>
+</dataSource>
