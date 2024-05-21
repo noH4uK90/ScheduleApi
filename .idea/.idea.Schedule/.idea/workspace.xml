@@ -8,7 +8,68 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0775558f-7608-4abc-9eda-611737b3b156" name="Changes" comment="" />
+    <list default="true" id="0775558f-7608-4abc-9eda-611737b3b156" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Schedule.Api/Middleware/CustomeException/CustomExceptionHandlerMiddleware.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Api/Middleware/CustomeException/CustomExceptionHandlerMiddlewareExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Api/Modules/ApiModule.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Application/Client/AktScheduleClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Application/Modules/ApplicationModule.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Application/ViewModels/GroupViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Enums/AccountRole.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Enums/WeekType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Exceptions/AlreadyExistsException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Exceptions/DeletedException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Exceptions/IncorrectAuthorizationDataException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Exceptions/IncorrectPasswordException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Exceptions/NotAccessException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Exceptions/NotFoundException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Exceptions/ScheduleException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Extensions/StringExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Interfaces/IDateInfoService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Interfaces/IDayInfoService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Interfaces/IMapWith.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Interfaces/IPasswordHasherService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Interfaces/IScheduleDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Common/Interfaces/IWeekInfoService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Core/Models/SubLesson.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Common/Interfaces/IClassroomRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Common/Interfaces/IDisciplineRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Common/Interfaces/ILessonRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Common/Interfaces/ILessonTypeRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Common/Interfaces/ITeacherFullNameRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Common/Interfaces/ITimetableRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Repositories/ClassroomRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Repositories/DisciplineRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Repositories/LessonRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Repositories/LessonTypeRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Repositories/TeacherFullNameRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Schedule.Persistence/Repositories/TimetableRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Schedule/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Schedule/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Api/Schedule.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Api/Schedule.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Application/Schedule.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Application/Schedule.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Core/Schedule.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Schedule.Core.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Context/ScheduleDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Persistence/Context/ScheduleDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Account.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Account.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Classroom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Classroom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Day.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Day.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Discipline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Discipline.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Employee.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Employee.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Homework.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Homework.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Lesson.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Lesson.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/LessonType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/LessonType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/MiddleName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/MiddleName.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Name.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Name.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Notification.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Notification.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Role.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Session.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Session.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Student.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Student.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Surname.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Surname.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Teacher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Teacher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/TeacherFullName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/TeacherFullName.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Schedule.Persistence/Models/Timetable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Schedule.Core/Models/Timetable.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +78,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;noH4uK90&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/noH4uK90/ScheduleApi&quot;,
+    &quot;accountId&quot;: &quot;f3237f58-0511-4e84-99f4-eb5f98d57ae1&quot;
+  }
+}</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -27,26 +100,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;/Users/noh4uk/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
-      &quot;/Users/noh4uk/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
-      &quot;/Users/noh4uk/Library/Application Support/Symbols/src&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ],
+    "rider.external.source.directories": [
+      "/Users/noh4uk/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
+      "/Users/noh4uk/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache",
+      "/Users/noh4uk/Library/Application Support/Symbols/src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Schedule: http">
     <configuration name="Schedule: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Schedule.Api/Schedule.Api.csproj" />
@@ -87,8 +163,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1689330193340</updated>
-      <workItem from="1716237855180" duration="1347000" />
+      <workItem from="1716237855180" duration="7116000" />
+      <workItem from="1716282246641" duration="2187000" />
     </task>
+    <task id="LOCAL-00001" summary="init">
+      <option name="closed" value="true" />
+      <created>1716239394846</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716239394846</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,6 +195,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Schedule.Persistence.Models;
+using Schedule.Core.Common.Interfaces;
+using Schedule.Core.Models;
 
 namespace Schedule.Persistence.Context;
 
-public partial class ScheduleDbContext : DbContext
+public partial class ScheduleDbContext : DbContext, IScheduleDbContext
 {
     public ScheduleDbContext()
     {
@@ -46,6 +47,8 @@ public partial class ScheduleDbContext : DbContext
 
     public virtual DbSet<Student> Students { get; set; }
 
+    public virtual DbSet<SubLesson> SubLessons { get; set; }
+
     public virtual DbSet<Surname> Surnames { get; set; }
 
     public virtual DbSet<Teacher> Teachers { get; set; }
@@ -54,9 +57,48 @@ public partial class ScheduleDbContext : DbContext
 
     public virtual DbSet<Timetable> Timetables { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("User ID=postgres;Host=localhost;Port=5432;Database=new_schedule;");
+    public async Task WithTransactionAsync(Func<Task> action, CancellationToken cancellationToken = default)
+    {
+        if (Database.CurrentTransaction != null)
+        {
+            await action();
+        }
+        else
+        {
+            await using var transaction = await Database.BeginTransactionAsync(cancellationToken);
+            try
+            {
+                await action();
+                await transaction.CommitAsync(cancellationToken);
+            }
+            catch
+            {
+                await transaction.RollbackAsync(cancellationToken);
+                throw;
+            }
+        }
+    }
+
+    public async Task<T> WithTransactionAsync<T>(Func<Task<T>> action, CancellationToken cancellationToken = default)
+    {
+        if (Database.CurrentTransaction != null)
+        {
+            return await action();
+        }
+
+        await using var transaction = await Database.BeginTransactionAsync(cancellationToken);
+        try
+        {
+            var result = await action();
+            await transaction.CommitAsync(cancellationToken);
+            return result;
+        }
+        catch
+        {
+            await transaction.RollbackAsync(cancellationToken);
+            throw;
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -200,12 +242,15 @@ public partial class ScheduleDbContext : DbContext
 
             entity.ToTable("lesson");
 
+            entity.HasIndex(e => e.SubLessonId, "lesson_sub_lesson_uq").IsUnique();
+
             entity.Property(e => e.LessonId)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("lesson_id");
             entity.Property(e => e.ClassroomId).HasColumnName("classroom_id");
             entity.Property(e => e.DisciplineId).HasColumnName("discipline_id");
             entity.Property(e => e.Number).HasColumnName("number");
+            entity.Property(e => e.SubLessonId).HasColumnName("sub_lesson_id");
             entity.Property(e => e.TeacherId).HasColumnName("teacher_id");
             entity.Property(e => e.TimeEnd).HasColumnName("time_end");
             entity.Property(e => e.TimeStart).HasColumnName("time_start");
@@ -220,6 +265,11 @@ public partial class ScheduleDbContext : DbContext
             entity.HasOne(d => d.Discipline).WithMany(p => p.Lessons)
                 .HasForeignKey(d => d.DisciplineId)
                 .HasConstraintName("lesson_discipline_id_fk");
+
+            entity.HasOne(d => d.SubLesson).WithOne(p => p.Lesson)
+                .HasForeignKey<Lesson>(d => d.SubLessonId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("lesson_sub_lesson_id_fk");
 
             entity.HasOne(d => d.Teacher).WithMany(p => p.Lessons)
                 .HasForeignKey(d => d.TeacherId)
@@ -342,6 +392,37 @@ public partial class ScheduleDbContext : DbContext
             entity.HasOne(d => d.Group).WithMany(p => p.Students)
                 .HasForeignKey(d => d.GroupId)
                 .HasConstraintName("student_group_id_fk");
+        });
+
+        modelBuilder.Entity<SubLesson>(entity =>
+        {
+            entity.HasKey(e => e.SubLessonId).HasName("sub_lesson_pk");
+
+            entity.ToTable("sub_lesson");
+
+            entity.Property(e => e.SubLessonId).HasColumnName("sub_lesson_id");
+            entity.Property(e => e.ClassroomId).HasColumnName("classroom_id");
+            entity.Property(e => e.DisciplineId).HasColumnName("discipline_id");
+            entity.Property(e => e.TeacherId).HasColumnName("teacher_id");
+            entity.Property(e => e.TypeId).HasColumnName("type_id");
+
+            entity.HasOne(d => d.Classroom).WithMany(p => p.SubLessons)
+                .HasForeignKey(d => d.ClassroomId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("sub_lesson_classroom_id_fk");
+
+            entity.HasOne(d => d.Discipline).WithMany(p => p.SubLessons)
+                .HasForeignKey(d => d.DisciplineId)
+                .HasConstraintName("sub_lesson_discipline_id_fk");
+
+            entity.HasOne(d => d.Teacher).WithMany(p => p.SubLessons)
+                .HasForeignKey(d => d.TeacherId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("sub_lesson_teacher_id_fk");
+
+            entity.HasOne(d => d.Type).WithMany(p => p.SubLessons)
+                .HasForeignKey(d => d.TypeId)
+                .HasConstraintName("sub_lesson_type_id_fk");
         });
 
         modelBuilder.Entity<Surname>(entity =>

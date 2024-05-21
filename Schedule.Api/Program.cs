@@ -1,25 +1,50 @@
-var builder = WebApplication.CreateBuilder(args);
+using System.Text.Json.Serialization;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Schedule.Api.Middleware.CustomException;
+using Schedule.Application.Modules;
+using Schedule.Common;
+using Schedule.Modules;
 
-// Add services to the container.
+var applicationBuilder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+applicationBuilder.Host
+    .UseServiceProviderFactory(new AutofacServiceProviderFactory(builder =>
+    {
+        var configuration = applicationBuilder.Configuration;
+            
+        builder.RegisterModule(new ApiModule(configuration));
+        builder.RegisterModule<ApplicationModule>();
+    }))
+    .ConfigureServices(services =>
+    {
+        services
+            .AddEndpointsApiExplorer()
+            .AddSwaggerGen()
+            .AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
+    });
 
-var app = builder.Build();
+var app = applicationBuilder.Build();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+ConfigureApp(app);
 
 app.Run();
+
+void ConfigureApp(WebApplication webApp)
+{
+    webApp.UseRequestLocalization();
+    webApp
+        .UseCustomExceptionHandler()
+        .UseSwagger()
+        .UseSwaggerUI();
+    webApp.UseRouting();
+    webApp.UseCors(Constants.CorsName);
+    webApp.UseAuthentication();
+    webApp.UseAuthorization();
+    webApp.MapControllers();
+}
