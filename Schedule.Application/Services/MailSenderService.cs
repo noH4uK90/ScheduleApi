@@ -21,7 +21,7 @@ public class MailSenderService(IConfiguration configuration) : IMailSenderServic
         };
 
         using var client = new SmtpClient();
-        await client.ConnectAsync("smtp.office365.com", 587, false, cancellationToken);
+        await client.ConnectAsync("smtp.gmail.com", 587, false, cancellationToken);
         await client.AuthenticateAsync(configuration["MailData:UserName"], configuration["MailData:Password"], cancellationToken);
         await client.SendAsync(emailMessage, cancellationToken);
 

@@ -28,6 +28,8 @@ public partial class ScheduleDbContext : DbContext, IScheduleDbContext
     public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<Group> Groups { get; set; }
+    
+    public virtual DbSet<GroupDiscipline> GroupDisciplines { get; set; }
 
     public virtual DbSet<Homework> Homeworks { get; set; }
 
@@ -208,6 +210,29 @@ public partial class ScheduleDbContext : DbContext, IScheduleDbContext
             entity.Property(e => e.Name).HasColumnName("name");
         });
 
+        modelBuilder.Entity<GroupDiscipline>(entity =>
+        {
+            entity.HasKey(e => new { e.GroupId, e.DisciplineId })
+                .HasName("group_discipline_pk");
+
+            entity.ToTable("group_discipline");
+
+            entity.Property(e => e.GroupId)
+                .HasColumnName("group_id");
+            entity.Property(e => e.DisciplineId)
+                .HasColumnName("discipline_id");
+
+            entity.HasOne(d => d.Group)
+                .WithMany(p => p.GroupDisciplines)
+                .HasForeignKey(d => d.GroupId)
+                .HasConstraintName("group_discipline_group_id_fk");
+
+            entity.HasOne(d => d.Discipline)
+                .WithMany(p => p.GroupDisciplines)
+                .HasForeignKey(d => d.DisciplineId)
+                .HasConstraintName("group_discipline_discipline_id_fk");
+        });
+
         modelBuilder.Entity<Homework>(entity =>
         {
             entity.HasKey(e => e.HomeworkId).HasName("homework_pk");
@@ -226,6 +251,7 @@ public partial class ScheduleDbContext : DbContext, IScheduleDbContext
                 .HasColumnName("expires");
             entity.Property(e => e.GroupId).HasColumnName("group_id");
             entity.Property(e => e.TeacherId).HasColumnName("teacher_id");
+            entity.Property(e => e.DisciplineId).HasColumnName("discipline_id");
             entity.Property(e => e.Title).HasColumnName("title");
 
             entity.HasOne(d => d.Group).WithMany(p => p.Homeworks)
@@ -235,6 +261,10 @@ public partial class ScheduleDbContext : DbContext, IScheduleDbContext
             entity.HasOne(d => d.Teacher).WithMany(p => p.Homeworks)
                 .HasForeignKey(d => d.TeacherId)
                 .HasConstraintName("homework_teacher_id_fk");
+
+            entity.HasOne(d => d.Discipline).WithMany(p => p.Homeworks)
+                .HasForeignKey(d => d.DisciplineId)
+                .HasConstraintName("homework_discipline_id_fk");
         });
 
         modelBuilder.Entity<Lesson>(entity =>

@@ -10,6 +10,10 @@ public class NameViewModel : IMapWith<Name>
 
     public void Map(Profile profile)
     {
+        profile.CreateMap<string, NameViewModel>()
+            .ForMember(viewModel => viewModel.Value, expression =>
+                expression.MapFrom(e => e));
+        
         profile.CreateMap<Name, NameViewModel>()
             .ForMember(viewModel => viewModel.Value, expression =>
                 expression.MapFrom(name => name.Value));

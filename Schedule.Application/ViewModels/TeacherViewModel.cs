@@ -33,7 +33,8 @@ public class TeacherViewModel : IMapWith<Teacher>
             .ForMember(viewModel => viewModel.Surname, expression =>
                 expression.MapFrom(teacher => teacher.Account.Surname))
             .ForMember(viewModel => viewModel.MiddleName, expression =>
-                expression.MapFrom(teacher => teacher.Account.MiddleName));
+                expression.MapFrom(teacher => teacher.Account.MiddleName))
+            .ReverseMap();
 
         profile.CreateMap<TeacherViewModel, Teacher>()
             .ForMember(teacher => teacher.TeacherId, expression =>
@@ -57,6 +58,7 @@ public class TeacherViewModel : IMapWith<Teacher>
             .ForMember(teacher => teacher.Account, expression =>
                 expression.MapFrom(viewModel => viewModel.MiddleName))
                 .ForPath(teacher => teacher.Account.MiddleName, expression =>
-                    expression.MapFrom(viewModel => viewModel.MiddleName));
+                    expression.MapFrom(viewModel => viewModel.MiddleName))
+            .ReverseMap();
     }
 }

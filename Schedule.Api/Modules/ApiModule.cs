@@ -71,28 +71,30 @@ public sealed class ApiModule(IConfiguration configuration) : Module
                 configuration.UseInMemoryStore();
                 configuration.UseDefaultThreadPool(pool => { pool.MaxConcurrency = 10; });
                 
-                configuration.AddJob<CollectingGroupsJob>(options =>
-                    options.WithIdentity("CollectingGroupsJob"));
-                configuration.AddTrigger(configure => 
-                    configure.ForJob("CollectingGroupsJob")
-                        .WithIdentity("CollectingGroupsTrigger")
-                        .StartNow()
-                        .WithSimpleSchedule(x => x.WithRepeatCount(0)));
-
+                // configuration.AddJob<CollectingGroupsJob>(options =>
+                //     options.WithIdentity("CollectingGroupsJob"));
+                // configuration.AddTrigger(configure => 
+                //     configure.ForJob("CollectingGroupsJob")
+                //         .WithIdentity("CollectingGroupsTrigger")
+                //         .StartNow()
+                //         .WithSimpleSchedule(x => x.WithRepeatCount(0)));
+                
                 configuration.AddJob<CollectingNextWeekScheduleJob>(options =>
                     options.WithIdentity("CollectingNextWeekScheduleJob"));
                 configuration.AddTrigger(configure =>
                     configure.ForJob("CollectingNextWeekScheduleJob")
                         .WithIdentity("CollectingNextWeekScheduleTrigger")
-                        .WithCronSchedule("0 0 16 ? * *"));
-                        //.WithCronSchedule("0 0 0 ? * SUN"));
+                        .WithCronSchedule("0 34 0 ? * *"));
+                        // .WithCronSchedule("0 0 0 ? * SUN"));
                 
                 configuration.AddJob<CollectingScheduleJob>(options =>
                     options.WithIdentity("CollectingScheduleJob"));
                 configuration.AddTrigger(configure =>
                     configure.ForJob("CollectingScheduleJob")
                         .WithIdentity("CollectingScheduleTrigger")
+                        // .WithCronSchedule("0 21 21 ? * MON-SAT"));
                         .WithCronSchedule("0 0 7-16 ? * MON-SAT"));
+                        // .WithCronSchedule("0 0 7-22 ? * MON-SAT"));
 
                 // configuration.AddJob<TransferGroupsJob>(options =>
                 //     options.WithIdentity("TransferGroupsJob"));

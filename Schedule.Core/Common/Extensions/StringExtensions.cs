@@ -1,4 +1,6 @@
-﻿namespace Schedule.Core.Common.Extensions;
+﻿using Schedule.Core.Models;
+
+namespace Schedule.Core.Common.Extensions;
 
 public static class StringExtensions
 {

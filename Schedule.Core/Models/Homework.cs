@@ -11,6 +11,8 @@ public partial class Homework
     public int TeacherId { get; set; }
 
     public int GroupId { get; set; }
+    
+    public int DisciplineId { get; set; }
 
     public DateTime Created { get; set; }
 
@@ -19,4 +21,6 @@ public partial class Homework
     public virtual Group Group { get; set; } = null!;
 
     public virtual Teacher Teacher { get; set; } = null!;
+
+    public virtual Discipline Discipline { get; set; } = null!;
 }

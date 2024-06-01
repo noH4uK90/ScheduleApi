@@ -1,9 +1,10 @@
 using AutoMapper;
+using Schedule.Core.Common.Interfaces;
 using Schedule.Core.Models;
 
 namespace Schedule.Application.ViewModels;
 
-public class LessonTypeViewModel
+public class LessonTypeViewModel : IMapWith<LessonType>
 {
     public int Id { get; set; }
     

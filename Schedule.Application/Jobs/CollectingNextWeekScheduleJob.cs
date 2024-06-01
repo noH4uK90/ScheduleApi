@@ -13,22 +13,23 @@ public class CollectingNextWeekScheduleJob(
     IDateInfoService dateInfoService,
     ILessonTimeService lessonTimeService,
     ILessonRepository lessonRepository,
+    IDisciplineRepository disciplineRepository,
     ITimetableRepository timetableRepository)
     : IJob
 {
     public async Task Execute(IJobExecutionContext context1)
     {
-        var groups = await context.Groups.ToListAsync();
-        var startOfWeek = dateInfoService.GetStartOfWeek(DateTime.Now);
-        var startOfNextWeek = startOfWeek;//.AddDays(7);
-
-        foreach (var group in groups)
+        await context.WithTransactionAsync(async () =>
         {
-            var schedules = await client.GetSchedule(group.GroupId, startOfNextWeek);
+            var groups = await context.Groups.ToListAsync();
+            var startOfWeek = dateInfoService.GetStartOfWeek(DateTime.Now);
+            var startOfNextWeek = startOfWeek;//.AddDays(7);
 
-            foreach (var schedule in schedules)
+            foreach (var group in groups)
             {
-                await context.WithTransactionAsync(async () =>
+                var schedules = await client.GetSchedule(group.GroupId, startOfNextWeek);
+
+                foreach (var schedule in schedules)
                 {
                     var date = startOfNextWeek.AddDays(schedule.DayId - 1);
 
@@ -43,10 +44,16 @@ public class CollectingNextWeekScheduleJob(
                     });
                     
                     await lessonRepository.AddAsync(timetable.TimetableId, schedule, timeStart, timeEnd);
-
-                    await context.SaveChangesAsync();
-                });
+                }
+                
+                var disciplines = schedules.Select(e => e.Discipline).Distinct();
+                foreach (var discipline in disciplines)
+                {
+                    await disciplineRepository.AddGroupDiscipline(group.GroupId, discipline);
+                }
+                
+                await context.SaveChangesAsync();
             }
-        }
+        });
     }
 }

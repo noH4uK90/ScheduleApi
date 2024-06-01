@@ -13,4 +13,6 @@ public partial class Group
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 
     public virtual ICollection<Timetable> Timetables { get; set; } = new List<Timetable>();
+
+    public virtual ICollection<GroupDiscipline> GroupDisciplines { get; set; } = new List<GroupDiscipline>();
 }

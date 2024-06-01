@@ -8,4 +8,6 @@ public interface ILessonRepository
 
     public Task UpdateAsync(int timetableId, ParsedScheduleItem lesson, string timeStart, string timeEnd,
         CancellationToken cancellationToken = default);
+
+    public Task DeleteAsync(int timetableId, CancellationToken cancellationToken = default);
 }

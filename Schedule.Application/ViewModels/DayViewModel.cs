@@ -8,7 +8,7 @@ public class DayViewModel : IMapWith<Day>
 {
     public int Id { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string WeekDay { get; set; } = null!;
 
     public bool IsStudy { get; set; }
 

@@ -8,7 +8,7 @@ namespace Schedule.Application.ViewModels;
 public class LessonViewModel : IMapWith<Lesson>
 {
     public int Id { get; set; }
-    
+
     public int Number { get; set; }
 
     public DisciplineViewModel Discipline { get; set; } = null!;
@@ -17,7 +17,9 @@ public class LessonViewModel : IMapWith<Lesson>
     
     public ClassroomViewModel? Classroom { get; set; }
 
-    public LessonTypeViewModel LessonType { get; set; } = null!;
+    public LessonTypeViewModel Type { get; set; } = null!;
+    
+    public SubLessonViewModel? SubLesson { get; set; }
 
     public string TimeStart { get; set; } = null!;
 

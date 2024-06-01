@@ -1,9 +1,10 @@
 using AutoMapper;
+using Schedule.Core.Common.Interfaces;
 using Schedule.Core.Models;
 
 namespace Schedule.Application.ViewModels;
 
-public class TeacherFullNameViewModel
+public class TeacherFullNameViewModel : IMapWith<TeacherFullName>
 {
     public int Id { get; set; }
 
@@ -13,6 +14,7 @@ public class TeacherFullNameViewModel
     {
         profile.CreateMap<TeacherFullName, TeacherFullNameViewModel>()
             .ForMember(viewModel => viewModel.Id, expression =>
-                expression.MapFrom(teacher => teacher.FullNameId));
+                expression.MapFrom(teacher => teacher.FullNameId))
+            .ReverseMap();
     }
 }

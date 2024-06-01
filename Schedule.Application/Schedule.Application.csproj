@@ -26,6 +26,7 @@
 
     <ItemGroup>
       <Folder Include="Common\" />
+      <Folder Include="Features\Accounts\" />
       <Folder Include="Services\" />
     </ItemGroup>
 

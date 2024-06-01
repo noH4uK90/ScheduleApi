@@ -21,13 +21,17 @@ public class SubLessonRepository(
         var classroomDb = await classroomRepository.AddIfNotExists(subLesson.Classroom, cancellationToken);
 
         var subLessonDb = await context.SubLessons
+            .Include(e => e.Classroom)
+            .Include(e => e.Discipline)
+            .Include(e => e.Teacher)
+            .Include(e => e.Type)
             .FirstOrDefaultAsync(e =>
                 e.DisciplineId == disciplineDb.DisciplineId &&
                 e.TeacherId == teacherDb.FullNameId &&
                 e.ClassroomId == classroomDb.ClassroomId &&
                 e.TypeId == typeDb.TypeId, cancellationToken);
 
-        if (subLessonDb is not null) return subLessonDb.SubLessonId;
+        // if (subLessonDb is not null) return subLessonDb.SubLessonId;
 
         var created = await context.SubLessons
             .AddAsync(new SubLesson
@@ -45,6 +49,10 @@ public class SubLessonRepository(
     public async Task UpdateAsync(int subLessonId, ParsedScheduleSubItem subLesson, CancellationToken cancellationToken = default)
     {
         var subLessonDb = await context.SubLessons
+            .Include(e => e.Classroom)
+            .Include(e => e.Discipline)
+            .Include(e => e.Teacher)
+            .Include(e => e.Type)
             .FirstOrDefaultAsync(e =>
                 e.SubLessonId == subLessonId, cancellationToken);
 
@@ -64,6 +72,20 @@ public class SubLessonRepository(
         subLessonDb.TypeId = typeDb.TypeId;
         
         context.SubLessons.Update(subLessonDb);
+        await context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task DeleteAsync(int subLessonId, CancellationToken cancellationToken = default)
+    {
+        var subLessonDb = await context.SubLessons
+            .FirstOrDefaultAsync(e => e.SubLessonId == subLessonId, cancellationToken);
+
+        if (subLessonDb is null)
+        {
+            throw new NotFoundException(nameof(SubLesson), subLessonId);
+        }
+
+        context.SubLessons.Remove(subLessonDb);
         await context.SaveChangesAsync(cancellationToken);
     }
 }

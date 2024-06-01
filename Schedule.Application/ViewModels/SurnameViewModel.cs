@@ -10,6 +10,10 @@ public class SurnameViewModel : IMapWith<Surname>
 
     public void Map(Profile profile)
     {
+        profile.CreateMap<string, SurnameViewModel>()
+            .ForMember(viewModel => viewModel.Value, expression =>
+                expression.MapFrom(e => e));
+        
         profile.CreateMap<Surname, SurnameViewModel>()
             .ForMember(viewModel => viewModel.Value, expression =>
                 expression.MapFrom(surname => surname.Value));

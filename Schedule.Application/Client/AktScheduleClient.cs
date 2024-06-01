@@ -107,7 +107,7 @@ public class AktScheduleClient : IAktScheduleClient
                 Number = number,
                 DayId = dayId,
                 Discipline = subClassDiv.SelectSingleNode("div[contains(@class, 'vt240')]")?.InnerText.Trim() ?? "",
-                Teacher = subClassDiv.SelectSingleNode("span[contains(@class, 'teacher')]")?.InnerText.Trim() ?? "",
+                Teacher = subClassDiv.SelectSingleNode("div[contains(@class, 'vt241')]").SelectSingleNode("span[contains(@class, 'teacher')]")?.InnerText.Trim() ?? "",
                 Classroom = subClassDiv.SelectSingleNode("div[contains(@class, 'vt242')]")?.InnerText.Trim() ?? "",
                 Type = subClassDiv.SelectSingleNode("div[contains(@class, 'vt243')]")?.InnerText.Trim() ?? ""
             }
@@ -118,7 +118,7 @@ public class AktScheduleClient : IAktScheduleClient
             Number = number,
             DayId = dayId,
             Discipline = mainClassDiv.SelectSingleNode("div[contains(@class, 'vt240')]")?.InnerText.Trim() ?? "",
-            Teacher = mainClassDiv.SelectSingleNode("span[contains(@class, 'teacher')]")?.InnerText.Trim() ?? "",
+            Teacher = mainClassDiv.SelectSingleNode("div[contains(@class, 'vt241')]").SelectSingleNode("span[contains(@class, 'teacher')]")?.InnerText.Trim() ?? "",
             Classroom = mainClassDiv.SelectSingleNode("div[contains(@class, 'vt242')]")?.InnerText.Trim() ?? "",
             Type = mainClassDiv.SelectSingleNode("div[contains(@class, 'vt243')]")?.InnerText.Trim() ?? "",
             SubItem = subItem

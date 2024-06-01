@@ -32,7 +32,8 @@ public class EmployeeViewModel : IMapWith<Employee>
             .ForMember(viewModel => viewModel.Surname, expression =>
                 expression.MapFrom(employee => employee.Account.Surname))
             .ForMember(viewModel => viewModel.MiddleName, expression =>
-                expression.MapFrom(employee => employee.Account.MiddleName));
+                expression.MapFrom(employee => employee.Account.MiddleName))
+            .ReverseMap();
 
         profile.CreateMap<EmployeeViewModel, Employee>()
             .ForMember(employee => employee.EmployeeId, expression =>
@@ -56,6 +57,7 @@ public class EmployeeViewModel : IMapWith<Employee>
             .ForMember(employee => employee.Account, expression =>
                 expression.MapFrom(viewModel => viewModel.MiddleName))
             .ForPath(employee => employee.Account.MiddleName, expression =>
-                expression.MapFrom(viewModel => viewModel.MiddleName));
+                expression.MapFrom(viewModel => viewModel.MiddleName))
+            .ReverseMap();
     }
 }

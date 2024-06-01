@@ -8,4 +8,6 @@ public interface ISubLessonRepository
 
     public Task UpdateAsync(int subLessonId, ParsedScheduleSubItem subLesson,
         CancellationToken cancellationToken = default);
+
+    public Task DeleteAsync(int subLessonId, CancellationToken cancellationToken = default);
 }

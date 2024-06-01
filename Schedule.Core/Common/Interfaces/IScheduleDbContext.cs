@@ -20,6 +20,8 @@ public interface IScheduleDbContext
     DbSet<Employee> Employees { get; }
 
     DbSet<Group> Groups { get; }
+    
+    DbSet<GroupDiscipline> GroupDisciplines { get; }
 
     DbSet<Homework> Homeworks { get; }
     

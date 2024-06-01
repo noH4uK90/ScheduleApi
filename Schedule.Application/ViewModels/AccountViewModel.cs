@@ -30,23 +30,24 @@ public class AccountViewModel : IMapWith<Account>
             .ForMember(account => account.Id, expression =>
                 expression.MapFrom(account => account.AccountId))
             .ForMember(viewModel => viewModel.Name, expression =>
-                expression.MapFrom(account => new NameViewModel
+                expression.MapFrom<NameViewModel>(account => new NameViewModel
                 {
                     Value = account.Name
                 }))
             .ForMember(viewModel => viewModel.Surname, expression =>
-                expression.MapFrom(account => new SurnameViewModel
+                expression.MapFrom<SurnameViewModel>(account => new SurnameViewModel
                 {
                     Value = account.Surname
                 }))
             .ForMember(viewModel => viewModel.MiddleName, expression =>
-                expression.MapFrom(account => new MiddleNameViewModel
+                expression.MapFrom<MiddleNameViewModel>(account => new MiddleNameViewModel
                 {
                     Value = account.MiddleName
                 }));
 
         profile.CreateMap<AccountViewModel, Account>()
             .ForMember(viewModel => viewModel.AccountId, expression =>
-                expression.MapFrom(viewModel => viewModel.Id));
+                expression.MapFrom(viewModel => viewModel.Id))
+            .ReverseMap();
     }
 }

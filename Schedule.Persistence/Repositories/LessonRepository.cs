@@ -15,18 +15,41 @@ public class LessonRepository(
     ISubLessonRepository subLessonRepository)
     : ILessonRepository
 {
-    public async Task AddAsync(int timetableId, ParsedScheduleItem lesson, string timeStart, string timeEnd, CancellationToken cancellationToken = default)
+    public async Task AddAsync(int timetableId, ParsedScheduleItem lesson, string timeStart, string timeEnd,
+        CancellationToken cancellationToken = default)
     {
         await context.WithTransactionAsync(async () =>
         {
             var timetable = await context.Timetables
+                .Include(e => e.Day)
+                .Include(e => e.Group)
+                .Include(e => e.Lessons)
+                .ThenInclude(e => e.Classroom)
+                .Include(e => e.Lessons)
+                .ThenInclude(e => e.Discipline)
+                .Include(e => e.Lessons)
+                .ThenInclude(e => e.Teacher)
+                .Include(e => e.Lessons)
+                .ThenInclude(e => e.Type)
+                .Include(e => e.Lessons)
+                .ThenInclude(e => e.SubLesson)
+                .ThenInclude(e => e.Classroom)
+                .Include(e => e.Lessons)
+                .ThenInclude(e => e.SubLesson)
+                .ThenInclude(e => e.Discipline)
+                .Include(e => e.Lessons)
+                .ThenInclude(e => e.SubLesson)
+                .ThenInclude(e => e.Teacher)
+                .Include(e => e.Lessons)
+                .ThenInclude(e => e.SubLesson)
+                .ThenInclude(e => e.Type)
                 .FirstOrDefaultAsync(e => e.TimetableId == timetableId, cancellationToken);
 
             if (timetable is null)
             {
                 throw new NotFoundException(nameof(Timetable), timetableId);
             }
-            
+
             var disciplineDb = await disciplineRepository.AddIfNotExists(lesson.Discipline, cancellationToken);
             var typeDb = await lessonTypeRepository.AddIfNotExists(lesson.Type, cancellationToken);
             var teacherDb = await teacherRepository.AddIfNotExists(lesson.Teacher, cancellationToken);
@@ -61,6 +84,18 @@ public class LessonRepository(
         await context.WithTransactionAsync(async () =>
         {
             var lessonDb = await context.Lessons
+                .Include(e => e.Classroom)
+                .Include(e => e.Discipline)
+                .Include(e => e.Teacher)
+                .Include(e => e.Type)
+                .Include(e => e.SubLesson)
+                .ThenInclude(e => e.Classroom)
+                .Include(e => e.SubLesson)
+                .ThenInclude(e => e.Discipline)
+                .Include(e => e.SubLesson)
+                .ThenInclude(e => e.Teacher)
+                .Include(e => e.SubLesson)
+                .ThenInclude(e => e.Type)
                 .FirstOrDefaultAsync(e =>
                     e.TimetableId == timetableId &&
                     e.Number == lesson.Number, cancellationToken);
@@ -69,7 +104,7 @@ public class LessonRepository(
             {
                 throw new NotFoundException(nameof(Lesson));
             }
-            
+
             var disciplineDb = await disciplineRepository.AddIfNotExists(lesson.Discipline, cancellationToken);
             var typeDb = await lessonTypeRepository.AddIfNotExists(lesson.Type, cancellationToken);
             var teacherDb = await teacherRepository.AddIfNotExists(lesson.Teacher, cancellationToken);
@@ -83,14 +118,15 @@ public class LessonRepository(
             {
                 if (lessonDb.SubLessonId is not null)
                 {
-                    await subLessonRepository.UpdateAsync(lessonDb.SubLessonId.Value, lesson.SubItem, cancellationToken);
+                    await subLessonRepository.UpdateAsync(lessonDb.SubLessonId.Value, lesson.SubItem,
+                        cancellationToken);
                 }
                 else
                 {
                     await subLessonRepository.AddIfNotExists(lesson.SubItem, cancellationToken);
                 }
             }
-            
+
             lessonDb.DisciplineId = disciplineDb.DisciplineId;
             lessonDb.TeacherId = teacherDb.FullNameId;
             lessonDb.ClassroomId = classroomDb.ClassroomId;
@@ -98,6 +134,32 @@ public class LessonRepository(
 
             context.Lessons
                 .Update(lessonDb);
+            await context.SaveChangesAsync(cancellationToken);
+        }, cancellationToken);
+    }
+
+    public async Task DeleteAsync(int timetableId, CancellationToken cancellationToken = default)
+    {
+        await context.WithTransactionAsync(async () =>
+        {
+            var lessons = await context.Lessons
+                .Include(e => e.SubLesson)
+                .Where(e => e.TimetableId == timetableId)
+                .ToListAsync(cancellationToken);
+
+            var subLessonsToDelete = new List<SubLesson>();
+
+            foreach (var lesson in lessons)
+            {
+                if (lesson.SubLesson is not null)
+                {
+                    subLessonsToDelete.Add(lesson.SubLesson);
+                }
+
+                context.Lessons.Remove(lesson);
+            }
+
+            context.SubLessons.RemoveRange(subLessonsToDelete);
             await context.SaveChangesAsync(cancellationToken);
         }, cancellationToken);
     }

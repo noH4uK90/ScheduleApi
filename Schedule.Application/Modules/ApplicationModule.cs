@@ -63,23 +63,50 @@ public sealed class ApplicationModule : Module
 
     private void RegisterRepositories(ContainerBuilder builder)
     {
+        builder.RegisterType<AccountRepository>()
+            .As<IAccountRepository>();
+        
         builder.RegisterType<ClassroomRepository>()
             .As<IClassroomRepository>();
 
         builder.RegisterType<DisciplineRepository>()
             .As<IDisciplineRepository>();
         
+        builder.RegisterType<EmployeeRepository>()
+            .As<IEmployeeRepository>();
+
+        builder.RegisterType<HomeworkRepository>()
+            .As<IHomeworkRepository>();
+        
         builder.RegisterType<LessonRepository>()
             .As<ILessonRepository>();
 
         builder.RegisterType<LessonTypeRepository>()
             .As<ILessonTypeRepository>();
+        
+        builder.RegisterType<MiddleNameRepository>()
+            .As<IMiddleNameRepository>();
+        
+        builder.RegisterType<NameRepository>()
+            .As<INameRepository>();
+        
+        builder.RegisterType<SessionRepository>()
+            .As<ISessionRepository>();
+        
+        builder.RegisterType<StudentRepository>()
+            .As<IStudentRepository>();
 
         builder.RegisterType<SubLessonRepository>()
             .As<ISubLessonRepository>();
+        
+        builder.RegisterType<SurnameRepository>()
+            .As<ISurnameRepository>();
 
         builder.RegisterType<TeacherFullNameRepository>()
             .As<ITeacherFullNameRepository>();
+        
+        builder.RegisterType<TeacherRepository>()
+            .As<ITeacherRepository>();
 
         builder.RegisterType<TimetableRepository>()
             .As<ITimetableRepository>();
